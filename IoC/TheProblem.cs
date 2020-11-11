@@ -1,6 +1,8 @@
-﻿using System;
+﻿////Convert TheProblem to a loosely coupled using IoC
 
-namespace IoC
+using System;
+
+namespace TheProblem
 {
     class Program
     {
@@ -29,12 +31,6 @@ namespace IoC
             {
                 return "Dummy Customer Name"; // get it from DB in real app
             }
-        }
-
-        static void Main(string[] args)
-        {
-            CustomerBusinessLogic logic = new CustomerBusinessLogic();
-            Console.WriteLine(logic.GetCustomerName(1));
         }
     }
 }
