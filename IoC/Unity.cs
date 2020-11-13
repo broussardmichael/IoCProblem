@@ -1,5 +1,6 @@
 ﻿using System;
 using Unity;
+using Unity.Injection;
 
 namespace IoC
 {
@@ -66,11 +67,21 @@ namespace IoC
                     return "MOQ Customer Name"; // get it from DB in real app
                 }
             }
-        }
-        static void Main(string[] args)
-        {
 
-           
+            static void Main(string[] args)
+            {
+                IUnityContainer container = new UnityContainer();
+                container.RegisterType<IDataAccess, DataAccess>();
+                container.RegisterType<IDataAccess, MoqDataAccess>("TestData");      
+                container.RegisterType<CustomerService>("TestDataService",
+                new InjectionConstructor(container.Resolve<IDataAccess>("TestData")));
+
+                CustomerService cService = container.Resolve<CustomerService>();
+                CustomerService testService = container.Resolve<CustomerService>("TestDataService");
+
+                Console.WriteLine(cService.GetCustomerName(1));
+                Console.WriteLine(testService.GetCustomerName(1));
+            }
         }
     }
 }
