@@ -63,15 +63,5 @@ namespace IoC
                 return "MOQ Customer Name"; // get it from DB in real app
             }
         }
-
-        static void Main(string[] args)
-        {
-            CustomerService logic = new CustomerService();
-            CustomerService testLogic = new CustomerService(new MoqDataAccess());
-
-            Console.WriteLine(logic.GetCustomerName(1));
-            Console.WriteLine(testLogic.GetCustomerName(1));
-
-        }
     }
 }
